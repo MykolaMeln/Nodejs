@@ -9,7 +9,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, "public")));
 var config = require('./libs/config');
 
-app.get('/api',function (req,res){
+app.get('/api',function (req, res) {
     res.send('API is running');
 });
 var log = require('./libs/log')(module);
@@ -27,7 +27,7 @@ return ArticleModel.find(function (err, articles) {
         });
       });
 
-app.get('/ErrorExample',function(req,res,next){
+app.get('/ErrorExample',function(req, res, next) {
 next(new Error('Random error!'));
 });
 
@@ -78,7 +78,7 @@ app.get('/api/articles/:id', function(req, res) {
         });
 });
 
-app.put('/api/articles/:id', function (req, res){
+app.put('/api/articles/:id', function (req, res) {
 return ArticleModel.findById(req.params.id, function (err, article) {
         if(!article) {
           res.statusCode = 404;
@@ -107,7 +107,7 @@ return ArticleModel.findById(req.params.id, function (err, article) {
        });
      });
 
-app.delete('/api/articles/:id', function (req, res){
+app.delete('/api/articles/:id', function (req, res) {
     return ArticleModel.findById(req.params.id, function (err, article) {
           if(!article) {
             res.statusCode = 404;
@@ -126,20 +126,20 @@ app.delete('/api/articles/:id', function (req, res){
         });
       });
 
-app.use(function (req,res,next){
+app.use(function (req, res, next) {
     res.status(404);
     log.debug('Not found URL: %s',req.url);
     res.send({error:'Not found'});
     return;
 });
 
-app.use(function(err,req,res,next){
+app.use(function(err, req, res, next) {
 res.status(err.status || 500);
 log.error('Interal error(%d):%s',res.statusCode,err.message);
 res.send({error:err.message});
 return;
 });
 
-app.listen(config.get('port'), function(){
+app.listen(config.get('port'), function() {
 console.log('Express server listening on port ' + config.get('port'));
 });

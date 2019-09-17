@@ -1,12 +1,12 @@
 var express= require('express');
 var path=require('path');
 var app=express();
-//app.use(express.favicon());
-//app.use(express.logger('dev'));
+app.use(express.favicon());
+app.use(express.logger('dev'));
 app.use(express.bodyParser());
-//app.use(express.methodOverride());
-//app.use(app.router);
-//app.use(express.static(path.join(__dirname, "public")));
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, "public")));
 var config = require('./libs/config');
 
 app.get('/api',function (req,res){

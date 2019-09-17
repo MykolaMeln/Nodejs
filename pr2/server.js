@@ -21,7 +21,7 @@ return ArticleModel.find(function (err, articles) {
           return res.send(articles);
         } else {
             res.statusCode = 500;
-            log.error('Internal error(%d): %s', res.statusCode,err.message);
+            log.error('Internal error(%d): %s', res.statusCode, err.message);
             return res.send({ error: 'Server error' });
           }
         });
@@ -57,7 +57,7 @@ article.save(function (err) {
            res.statusCode = 500;
            res.send({ error: 'Server error' });
          }
-         log.error('Internal error(%d): %s',res.statusCode,err.message);
+         log.error('Internal error(%d): %s', res.statusCode, err.message);
        }
   });
 });
@@ -72,7 +72,7 @@ app.get('/api/articles/:id', function(req, res) {
             return res.send({ status: 'OK', article:article });
           } else {
             res.statusCode = 500;
-            log.error('Internal error(%d): %s',res.statusCode,err.message);
+            log.error('Internal error(%d): %s', res.statusCode, err.message);
             return res.send({ error: 'Server error' });
           }
         });
@@ -101,7 +101,7 @@ return ArticleModel.findById(req.params.id, function (err, article) {
                res.statusCode = 500;
                res.send({ error: 'Server error' });
              }
-             log.error('Internal error(%d): %s',res.statusCode,err.message);
+             log.error('Internal error(%d): %s', res.statusCode, err.message);
            }
          });
        });
@@ -119,7 +119,7 @@ app.delete('/api/articles/:id', function (req, res) {
               return res.send({ status: 'OK' });
             } else {
               res.statusCode = 500;
-              log.error('Internal error(%d): %s', res.statusCode,err.message);
+              log.error('Internal error(%d): %s', res.statusCode, err.message);
               return res.send({ error: 'Server error' });
             }
           });
@@ -128,14 +128,14 @@ app.delete('/api/articles/:id', function (req, res) {
 
 app.use(function (req, res, next) {
     res.status(404);
-    log.debug('Not found URL: %s',req.url);
+    log.debug('Not found URL: %s', req.url);
     res.send({error:'Not found'});
     return;
 });
 
 app.use(function(err, req, res, next) {
 res.status(err.status || 500);
-log.error('Interal error(%d):%s',res.statusCode,err.message);
+log.error('Interal error(%d):%s',res.statusCode, err.message);
 res.send({error:err.message});
 return;
 });

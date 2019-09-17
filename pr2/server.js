@@ -3,7 +3,7 @@ var path=require('path');
 var app=express();
 //app.use(express.favicon());
 //app.use(express.logger('dev'));
-//app.use(express.bodyParser());
+app.use(express.bodyParser());
 //app.use(express.methodOverride());
 //app.use(app.router);
 //app.use(express.static(path.join(__dirname, "public")));
@@ -34,10 +34,10 @@ next(new Error('Random error!'));
 app.post('/api/articles', function(req, res) {
   console.log(req.body);
           var article = new ArticleModel({
-            author: req.body.author
-            //description: req.body.description,
-            //title: req.body.title,
-            //modified: req.body.modified
+            author: req.body.author,
+            description: req.body.description,
+            title: req.body.title,
+            modified: req.body.modified
             //images: req.body.images
    });
 
@@ -84,9 +84,10 @@ return ArticleModel.findById(req.params.id, function (err, article) {
           res.statusCode = 404;
           return res.send({ error: 'Not found' });
         }
-        //article.title = req.body.title;
+        article.title = req.body.title;
         article.description = req.body.description;
         article.author = req.body.author;
+        article.modified = req.body.modified;
         //article.images = req.body.images;
         return article.save(function (err) {
           if (!err) {

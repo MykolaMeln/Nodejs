@@ -1,17 +1,20 @@
-var express= require('express');
-var path=require('path');
-var app=express();
+var express = require('express');
+var path = require('path');
+var app = express();
+
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, "public")));
+
 var config = require('./libs/config');
 
 app.get('/api',function (req, res) {
     res.send('API is running');
 });
+
 var log = require('./libs/log')(module);
 var ArticleModel = require('./libs/mongoose').ArticleModel;
 
@@ -135,7 +138,7 @@ app.use(function (req, res, next) {
 
 app.use(function(err, req, res, next) {
 res.status(err.status || 500);
-log.error('Interal error(%d):%s',res.statusCode, err.message);
+log.error('Interal error(%d):%s', res.statusCode, err.message);
 res.send({error:err.message});
 return;
 });
